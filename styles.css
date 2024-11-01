@@ -15,13 +15,13 @@ h1, h2, label {
     overflow-y: auto;
 }
 
-#notice-preview .notice {
+.notice {
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 12px;
     position: relative;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
 }
 
 .notice img.logo {
@@ -97,9 +97,5 @@ h1, h2, label {
     }
     .no-print {
         display: none;
-    }
-    .card, .card-body {
-        margin: 0;
-        padding: 0;
     }
 }
