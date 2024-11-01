@@ -13,7 +13,7 @@ $(document).ready(function() {
     const optionsCheckboxes = $('.form-check-input');
     const noticesPerPageSelect = $('#notices-per-page');
     const printButton = $('#print-button');
-    const noticePreviewDiv = $('#notice-preview');
+    const noticePreviewContainer = $('#notice-preview-container');
     const printableArea = $('#printable-area');
 
     // Dynamic Form Behavior
@@ -53,12 +53,16 @@ $(document).ready(function() {
 
     function updateNotice() {
         const noticeData = collectNoticeData();
-        const noticeHTML = generateNoticeHTML(noticeData);
-        noticePreviewDiv.html(`
-            <div class="notice">
-                ${noticeHTML}
-            </div>
-        `);
+        const noticesPerPage = parseInt(noticesPerPageSelect.val());
+        noticePreviewContainer.html('');
+        for (let i = 0; i < noticesPerPage; i++) {
+            const noticeHTML = generateNoticeHTML(noticeData);
+            noticePreviewContainer.append(`
+                <div class="notice">
+                    ${noticeHTML}
+                </div>
+            `);
+        }
     }
 
     function collectNoticeData() {
@@ -149,18 +153,22 @@ $(document).ready(function() {
     printButton.click(function() {
         printableArea.html('');
         const noticeData = collectNoticeData();
-        const noticeHTML = generateNoticeHTML(noticeData);
         const noticesPerPage = parseInt(noticesPerPageSelect.val());
 
         for (let i = 0; i < noticesPerPage; i++) {
-            const noticeElement = $(`
+            const noticeHTML = generateNoticeHTML(noticeData);
+            printableArea.append(`
                 <div class="notice">
                     ${noticeHTML}
                 </div>
             `);
-            printableArea.append(noticeElement);
         }
 
         window.print();
+    });
+
+    // Update notice preview when notices per page changes
+    noticesPerPageSelect.change(function() {
+        updateNotice();
     });
 });
