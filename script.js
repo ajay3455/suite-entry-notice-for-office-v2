@@ -10,10 +10,9 @@ $(document).ready(function() {
     const otherPersonnelNameInput = $('#other-personnel-name');
     const entryTypeSelect = $('#entry-type');
     const natureOfVisitInput = $('#nature-of-visit');
-    const optionsCheckboxes = $('.form-check-input');
     const noticesPerPageSelect = $('#notices-per-page');
     const printButton = $('#print-button');
-    const noticePreviewContainer = $('#notice-preview-container');
+    const noticePreview = $('#notice-preview');
     const printableArea = $('#printable-area');
 
     // Dynamic Form Behavior
@@ -47,17 +46,13 @@ $(document).ready(function() {
     });
 
     // Update Notice Preview
-    $('#notice-form input, #notice-form select, #notice-form textarea').on('input change', function() {
-        updateNotice();
-    });
-
     function updateNotice() {
         const noticeData = collectNoticeData();
         const noticesPerPage = parseInt(noticesPerPageSelect.val());
-        noticePreviewContainer.html('');
+        noticePreview.html('');
         for (let i = 0; i < noticesPerPage; i++) {
             const noticeHTML = generateNoticeHTML(noticeData);
-            noticePreviewContainer.append(`
+            noticePreview.append(`
                 <div class="notice">
                     ${noticeHTML}
                 </div>
@@ -65,6 +60,7 @@ $(document).ready(function() {
         }
     }
 
+    // Collect Data, Generate HTML, Format Date
     function collectNoticeData() {
         const suiteNumber = suiteNumberInput.val() || '____________';
         const entryDate = entryDateInput.val() ? formatDate(entryDateInput.val()) : '____________';
@@ -146,9 +142,6 @@ $(document).ready(function() {
         return date.toLocaleDateString(undefined, options);
     }
 
-    // Initial Notice Update
-    updateNotice();
-
     // Print Functionality
     printButton.click(function() {
         printableArea.html('');
@@ -167,8 +160,10 @@ $(document).ready(function() {
         window.print();
     });
 
-    // Update notice preview when notices per page changes
-    noticesPerPageSelect.change(function() {
-        updateNotice();
-    });
+    // Event Listeners
+    $('#notice-form').on('input change', 'input, select, textarea', updateNotice);
+    noticesPerPageSelect.change(updateNotice);
+
+    // Initial Notice Update
+    updateNotice();
 });
