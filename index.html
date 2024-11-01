@@ -12,7 +12,6 @@
         padding: 10px;
         font-family: 'Roboto', sans-serif;
         background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-        overflow: hidden;
     }
     h1 {
         color: #bf360c;
@@ -27,6 +26,7 @@
     .container {
         display: flex;
         height: calc(100vh - 60px);
+        overflow: hidden;
     }
     .section {
         flex: 1;
@@ -39,30 +39,38 @@
     }
     /* Form Section */
     .form-section {
-        max-width: 300px;
+        max-width: 320px;
     }
     .form-section img {
         display: block;
         margin: 0 auto 15px auto;
-        max-width: 100px;
+        max-width: 120px;
     }
     .form-group {
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
     .form-group label {
         font-weight: bold;
         margin-bottom: 5px;
         display: block;
+        color: #333;
     }
     .form-group input[type="text"],
     .form-group input[type="date"],
     .form-group select,
     .form-group textarea {
         width: 100%;
-        padding: 5px;
+        padding: 7px;
         border: 1px solid #ccc;
         border-radius: 6px;
         font-size: 14px;
+        transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: #bf360c;
+        outline: none;
     }
     .checkbox-group, .options-group {
         display: flex;
@@ -71,6 +79,11 @@
     .checkbox-group label, .options-group label {
         font-weight: normal;
         margin-bottom: 5px;
+        cursor: pointer;
+    }
+    .checkbox-group input[type="checkbox"],
+    .options-group input[type="checkbox"] {
+        margin-right: 8px;
     }
     .hidden {
         display: none;
@@ -83,33 +96,36 @@
     }
     .notice {
         width: 100%;
-        max-width: 400px;
+        max-width: 450px;
         border: 1px solid #ccc;
         padding: 15px;
         border-radius: 12px;
         position: relative;
     }
     .notice img.logo {
-        max-width: 80px;
+        max-width: 100px;
         display: block;
         margin: 0 auto 10px auto;
     }
     .notice img.lock {
-        max-width: 50px;
+        max-width: 60px;
         display: block;
         margin: 10px auto;
     }
     .notice h2 {
         text-align: center;
-        margin: 0;
+        margin: 10px 0;
+        color: #bf360c;
     }
     .notice p {
         margin: 5px 0;
+        font-size: 14px;
     }
     .notice .footer {
         text-align: center;
         margin-top: 10px;
         font-weight: bold;
+        font-size: 14px;
     }
     .notice .options {
         display: flex;
@@ -120,13 +136,14 @@
     .notice .options div {
         display: flex;
         align-items: center;
+        font-size: 14px;
     }
     .notice .options div span {
         margin-left: 5px;
     }
     /* Print Options Section */
     .print-options-section {
-        max-width: 200px;
+        max-width: 220px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -134,12 +151,16 @@
     .print-options-section h2 {
         margin-bottom: 15px;
     }
+    .print-options-section label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
     .print-options-section select,
     .print-options-section button {
         width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        font-size: 14px;
+        padding: 10px;
+        margin-bottom: 12px;
+        font-size: 15px;
         border-radius: 6px;
         border: 1px solid #ccc;
     }
@@ -148,6 +169,7 @@
         color: #fff;
         border: none;
         cursor: pointer;
+        transition: background-color 0.3s;
     }
     #print-button:hover {
         background-color: #a32d0a;
@@ -165,17 +187,29 @@
             left: 0;
             top: 0;
             width: 100%;
-            page-break-after: auto;
+            margin: 0;
         }
         #printable-area .notice {
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
             page-break-after: always;
-            margin-bottom: 0;
         }
         #printable-area .notice:last-child {
-            page-break-after: auto;
+            page-break-after: avoid;
         }
-        .no-print {
-            display: none;
+    }
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .container {
+            flex-direction: column;
+            height: auto;
+        }
+        .section {
+            max-height: none;
+        }
+        .notice-preview-section {
+            margin-top: 20px;
         }
     }
 </style>
@@ -435,10 +469,6 @@
                 const noticeElement = document.createElement('div');
                 noticeElement.classList.add('notice');
                 noticeElement.innerHTML = noticeHTML;
-                if (noticesPerPage === 2 && i === 0) {
-                    noticeElement.style.marginBottom = '20px';
-                    noticeElement.style.borderBottom = '2px dotted #000';
-                }
                 printableArea.appendChild(noticeElement);
             }
 
