@@ -9,61 +9,64 @@
     /* General Styles */
     body {
         margin: 0;
-        padding: 20px;
+        padding: 10px;
         font-family: 'Roboto', sans-serif;
         background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+        overflow: hidden;
     }
-    h1, h2, h3, h4, h5, h6, label {
+    h1 {
         color: #bf360c;
+        margin: 0;
     }
     /* Header */
     header {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     /* Main Container */
     .container {
         display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
+        height: calc(100vh - 60px);
     }
     .section {
-        flex: 1 1 calc(33.333% - 20px);
+        flex: 1;
         background-color: #ffffff;
         padding: 15px;
+        margin: 5px;
         border-radius: 12px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         overflow-y: auto;
-        max-height: 80vh;
     }
     /* Form Section */
+    .form-section {
+        max-width: 300px;
+    }
     .form-section img {
         display: block;
-        margin: 0 auto 20px auto;
-        max-width: 120px;
+        margin: 0 auto 15px auto;
+        max-width: 100px;
     }
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .form-group label {
-        display: block;
         font-weight: bold;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
+        display: block;
     }
     .form-group input[type="text"],
     .form-group input[type="date"],
     .form-group select,
     .form-group textarea {
         width: 100%;
-        padding: 10px;
+        padding: 5px;
         border: 1px solid #ccc;
-        border-radius: 8px;
+        border-radius: 6px;
         font-size: 14px;
     }
     .checkbox-group, .options-group {
         display: flex;
         flex-direction: column;
-        margin-top: 10px;
     }
     .checkbox-group label, .options-group label {
         font-weight: normal;
@@ -72,12 +75,18 @@
     .hidden {
         display: none;
     }
-    /* Notice Styles */
+    /* Notice Preview Section */
+    .notice-preview-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .notice {
+        width: 100%;
+        max-width: 400px;
         border: 1px solid #ccc;
         padding: 15px;
         border-radius: 12px;
-        margin-bottom: 20px;
         position: relative;
     }
     .notice img.logo {
@@ -95,17 +104,18 @@
         margin: 0;
     }
     .notice p {
-        margin: 10px 0;
+        margin: 5px 0;
     }
     .notice .footer {
         text-align: center;
-        margin-top: 20px;
+        margin-top: 10px;
         font-weight: bold;
     }
     .notice .options {
         display: flex;
         gap: 10px;
         margin-top: 10px;
+        flex-wrap: wrap;
     }
     .notice .options div {
         display: flex;
@@ -114,15 +124,23 @@
     .notice .options div span {
         margin-left: 5px;
     }
-    /* Print Button */
-    .print-section {
-        margin-bottom: 20px;
+    /* Print Options Section */
+    .print-options-section {
+        max-width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .print-section select, .print-section button {
-        margin-right: 10px;
-        padding: 8px 12px;
+    .print-options-section h2 {
+        margin-bottom: 15px;
+    }
+    .print-options-section select,
+    .print-options-section button {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
         font-size: 14px;
-        border-radius: 8px;
+        border-radius: 6px;
         border: 1px solid #ccc;
     }
     #print-button {
@@ -160,27 +178,6 @@
             display: none;
         }
     }
-    /* Modernized Form Styles */
-    .form-section {
-        background: #fafafa;
-    }
-    .form-group input[type="checkbox"] {
-        margin-right: 10px;
-    }
-    .form-group .checkbox-inline {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-    .form-group .checkbox-inline label {
-        margin: 0;
-    }
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .section {
-            flex: 1 1 100%;
-        }
-    }
 </style>
 </head>
 <body>
@@ -208,10 +205,7 @@
             <div class="form-group">
                 <label>Person(s) who entered the suite:</label>
                 <div class="checkbox-group">
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Security" id="security">
-                        <label for="security">Security</label>
-                    </div>
+                    <label><input type="checkbox" value="Security" id="security"> Security</label>
                     <div id="security-options" class="hidden">
                         <label for="guard-name">Select Guard:</label>
                         <select id="guard-name">
@@ -228,22 +222,10 @@
                         </select>
                         <input type="text" id="other-guard-name" class="hidden" placeholder="Enter Guard's Name">
                     </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Superintendent" id="superintendent">
-                        <label for="superintendent">Superintendent</label>
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Management" id="management">
-                        <label for="management">Management</label>
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Construction" id="construction">
-                        <label for="construction">Construction</label>
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Other" id="other-personnel">
-                        <label for="other-personnel">Other</label>
-                    </div>
+                    <label><input type="checkbox" value="Superintendent"> Superintendent</label>
+                    <label><input type="checkbox" value="Management"> Management</label>
+                    <label><input type="checkbox" value="Construction"> Construction</label>
+                    <label><input type="checkbox" value="Other" id="other-personnel"> Other</label>
                     <input type="text" id="other-personnel-name" class="hidden" placeholder="Specify who">
                 </div>
             </div>
@@ -266,57 +248,30 @@
             <div class="form-group">
                 <label>Options:</label>
                 <div class="options-group">
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Work Completed" id="work-completed">
-                        <label for="work-completed">Work Completed</label>
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Work Pending" id="work-pending">
-                        <label for="work-pending">Work Pending</label>
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" value="Please Contact Property Management" id="contact-management">
-                        <label for="contact-management">Please Contact Property Management</label>
-                    </div>
+                    <label><input type="checkbox" value="Work Completed"> Work Completed</label>
+                    <label><input type="checkbox" value="Work Pending"> Work Pending</label>
+                    <label><input type="checkbox" value="Please Contact Property Management"> Please Contact Property Management</label>
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- Sample Preview Section -->
-    <div class="section">
-        <h2>Sample Notice</h2>
-        <div class="notice">
-            <img src="https://i.imgur.com/LmweghF.png" alt="Company Logo" class="logo">
-            <h2>SUITE ENTRY NOTICE</h2>
-            <img src="https://i.imgur.com/7O6EOHU.png" alt="Lock Image" class="lock">
-            <p><strong>Date:</strong> ____________</p>
-            <p><strong>Suite Number:</strong> ____________</p>
-            <p><strong>Person(s) who entered:</strong> ____________</p>
-            <p><strong>Entry Type:</strong> ____________</p>
-            <p><strong>Nature of Visit:</strong></p>
-            <p>____________</p>
-            <div class="options">
-                <div><span>☐</span><span>Work Completed</span></div>
-                <div><span>☐</span><span>Work Pending</span></div>
-                <div><span>☐</span><span>Please Contact Property Management</span></div>
-            </div>
-            <p class="footer">Questions? Contact Property Management: 647-368-7395</p>
+    <!-- Notice Preview Section -->
+    <div class="section notice-preview-section">
+        <div class="notice" id="notice-preview">
+            <!-- Notice Content -->
         </div>
     </div>
 
-    <!-- Notice Preview Section -->
-    <div class="section">
-        <h2>Notice Preview</h2>
-        <div class="print-section">
-            <label for="notices-per-page">Notices per Page:</label>
-            <select id="notices-per-page">
-                <option value="1">1 per page</option>
-                <option value="2">2 per page</option>
-            </select>
-            <button id="print-button">Print Notice</button>
-        </div>
-        <div id="notice-preview"></div>
+    <!-- Print Options Section -->
+    <div class="section print-options-section">
+        <h2>Print Options</h2>
+        <label for="notices-per-page">Notices per Page:</label>
+        <select id="notices-per-page">
+            <option value="1">1 per page</option>
+            <option value="2">2 per page</option>
+        </select>
+        <button id="print-button">Print Notice</button>
     </div>
 </div>
 
@@ -384,21 +339,9 @@
         });
 
         function updateNotice() {
-            noticePreviewDiv.innerHTML = '';
             const noticeData = collectNoticeData();
             const noticeHTML = generateNoticeHTML(noticeData);
-            const noticesPerPage = parseInt(noticesPerPageSelect.value);
-
-            for (let i = 0; i < noticesPerPage; i++) {
-                const noticeElement = document.createElement('div');
-                noticeElement.classList.add('notice');
-                noticeElement.innerHTML = noticeHTML;
-                if (noticesPerPage === 2 && i === 0) {
-                    noticeElement.style.marginBottom = '20px';
-                    noticeElement.style.borderBottom = '2px dotted #ccc';
-                }
-                noticePreviewDiv.appendChild(noticeElement);
-            }
+            noticePreviewDiv.innerHTML = noticeHTML;
         }
 
         function collectNoticeData() {
