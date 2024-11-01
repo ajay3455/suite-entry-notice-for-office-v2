@@ -24,10 +24,11 @@
     /* Main Container */
     .container {
         display: flex;
+        flex-wrap: wrap;
         gap: 20px;
     }
     .section {
-        flex: 1;
+        flex: 1 1 calc(33.333% - 20px);
         background-color: #ffffff;
         padding: 15px;
         border-radius: 12px;
@@ -38,23 +39,35 @@
     /* Form Section */
     .form-section img {
         display: block;
-        margin: 0 auto 10px auto;
-        max-width: 100px;
+        margin: 0 auto 20px auto;
+        max-width: 120px;
     }
     .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     .form-group label {
         display: block;
         font-weight: bold;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
     }
     .checkbox-group, .options-group {
         display: flex;
         flex-direction: column;
+        margin-top: 10px;
     }
     .checkbox-group label, .options-group label {
         font-weight: normal;
+        margin-bottom: 5px;
     }
     .hidden {
         display: none;
@@ -107,26 +120,65 @@
     }
     .print-section select, .print-section button {
         margin-right: 10px;
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+    #print-button {
+        background-color: #bf360c;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    #print-button:hover {
+        background-color: #a32d0a;
     }
     /* Media Print Styles */
     @media print {
         body * {
             visibility: hidden;
         }
-        .notice, .notice * {
+        #printable-area, #printable-area * {
             visibility: visible;
         }
-        .notice {
+        #printable-area {
             position: absolute;
             left: 0;
             top: 0;
-            page-break-after: always;
+            width: 100%;
+            page-break-after: auto;
         }
-        .notice + .notice {
-            page-break-before: always;
+        #printable-area .notice {
+            page-break-after: always;
+            margin-bottom: 0;
+        }
+        #printable-area .notice:last-child {
+            page-break-after: auto;
         }
         .no-print {
             display: none;
+        }
+    }
+    /* Modernized Form Styles */
+    .form-section {
+        background: #fafafa;
+    }
+    .form-group input[type="checkbox"] {
+        margin-right: 10px;
+    }
+    .form-group .checkbox-inline {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+    .form-group .checkbox-inline label {
+        margin: 0;
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .section {
+            flex: 1 1 100%;
         }
     }
 </style>
@@ -156,7 +208,10 @@
             <div class="form-group">
                 <label>Person(s) who entered the suite:</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" value="Security" id="security"> Security</label>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Security" id="security">
+                        <label for="security">Security</label>
+                    </div>
                     <div id="security-options" class="hidden">
                         <label for="guard-name">Select Guard:</label>
                         <select id="guard-name">
@@ -173,10 +228,22 @@
                         </select>
                         <input type="text" id="other-guard-name" class="hidden" placeholder="Enter Guard's Name">
                     </div>
-                    <label><input type="checkbox" value="Superintendent"> Superintendent</label>
-                    <label><input type="checkbox" value="Management"> Management</label>
-                    <label><input type="checkbox" value="Construction"> Construction</label>
-                    <label><input type="checkbox" value="Other" id="other-personnel"> Other</label>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Superintendent" id="superintendent">
+                        <label for="superintendent">Superintendent</label>
+                    </div>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Management" id="management">
+                        <label for="management">Management</label>
+                    </div>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Construction" id="construction">
+                        <label for="construction">Construction</label>
+                    </div>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Other" id="other-personnel">
+                        <label for="other-personnel">Other</label>
+                    </div>
                     <input type="text" id="other-personnel-name" class="hidden" placeholder="Specify who">
                 </div>
             </div>
@@ -193,15 +260,24 @@
             <!-- Nature of Visit -->
             <div class="form-group">
                 <label for="nature-of-visit">Nature of Visit:</label>
-                <textarea id="nature-of-visit" rows="3"></textarea>
+                <textarea id="nature-of-visit" rows="4" placeholder="Describe the nature of the visit..."></textarea>
             </div>
             <!-- Options -->
             <div class="form-group">
                 <label>Options:</label>
                 <div class="options-group">
-                    <label><input type="checkbox" value="Work Completed"> Work Completed</label>
-                    <label><input type="checkbox" value="Work Pending"> Work Pending</label>
-                    <label><input type="checkbox" value="Please Contact Property Management"> Please Contact Property Management</label>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Work Completed" id="work-completed">
+                        <label for="work-completed">Work Completed</label>
+                    </div>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Work Pending" id="work-pending">
+                        <label for="work-pending">Work Pending</label>
+                    </div>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" value="Please Contact Property Management" id="contact-management">
+                        <label for="contact-management">Please Contact Property Management</label>
+                    </div>
                 </div>
             </div>
         </form>
@@ -244,6 +320,9 @@
     </div>
 </div>
 
+<!-- Printable Area -->
+<div id="printable-area" class="hidden"></div>
+
 <script>
     // JavaScript Code
     document.addEventListener('DOMContentLoaded', function() {
@@ -262,6 +341,7 @@
         const noticesPerPageSelect = document.getElementById('notices-per-page');
         const printButton = document.getElementById('print-button');
         const noticePreviewDiv = document.getElementById('notice-preview');
+        const printableArea = document.getElementById('printable-area');
         const formInputs = document.querySelectorAll('#notice-form input, #notice-form select, #notice-form textarea');
 
         // Dynamic Form Behavior
@@ -403,7 +483,25 @@
 
         // Print Functionality
         printButton.addEventListener('click', function() {
+            printableArea.innerHTML = '';
+            const noticeData = collectNoticeData();
+            const noticeHTML = generateNoticeHTML(noticeData);
+            const noticesPerPage = parseInt(noticesPerPageSelect.value);
+
+            for (let i = 0; i < noticesPerPage; i++) {
+                const noticeElement = document.createElement('div');
+                noticeElement.classList.add('notice');
+                noticeElement.innerHTML = noticeHTML;
+                if (noticesPerPage === 2 && i === 0) {
+                    noticeElement.style.marginBottom = '20px';
+                    noticeElement.style.borderBottom = '2px dotted #000';
+                }
+                printableArea.appendChild(noticeElement);
+            }
+
+            printableArea.classList.remove('hidden');
             window.print();
+            printableArea.classList.add('hidden');
         });
     });
 </script>
