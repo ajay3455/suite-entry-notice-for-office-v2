@@ -24,8 +24,88 @@
                 <div class="card-body">
                     <img src="https://i.imgur.com/LmweghF.png" alt="Company Logo" class="img-fluid mx-auto d-block mb-3" style="max-width: 150px;">
                     <form id="notice-form">
-                        <!-- Form Fields Here -->
-                        <!-- ... (same as before) -->
+                        <!-- Suite Number -->
+                        <div class="form-group">
+                            <label for="suite-number">Suite Number:</label>
+                            <input type="text" id="suite-number" class="form-control" placeholder="e.g., 1205">
+                        </div>
+                        <!-- Date of Entry -->
+                        <div class="form-group">
+                            <label for="entry-date">Date of Entry:</label>
+                            <input type="date" id="entry-date" class="form-control">
+                        </div>
+                        <!-- Persons Who Entered -->
+                        <div class="form-group">
+                            <label>Person(s) who entered the suite:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Security" id="security">
+                                <label class="form-check-label" for="security">Security</label>
+                            </div>
+                            <div id="security-options" class="ml-3 mt-2 d-none">
+                                <label for="guard-name">Select Guard:</label>
+                                <select id="guard-name" class="form-control mb-2">
+                                    <option value="">Select Guard</option>
+                                    <option value="Ajaypreet">Ajaypreet</option>
+                                    <option value="Amritpal">Amritpal</option>
+                                    <option value="Meet">Meet</option>
+                                    <option value="Jatin">Jatin</option>
+                                    <option value="Praveen">Praveen</option>
+                                    <option value="Jashanpreet">Jashanpreet</option>
+                                    <option value="Arnav">Arnav</option>
+                                    <option value="Gurwinder">Gurwinder</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                                <input type="text" id="other-guard-name" class="form-control d-none" placeholder="Enter Guard's Name">
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Superintendent" id="superintendent">
+                                <label class="form-check-label" for="superintendent">Superintendent</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Management" id="management">
+                                <label class="form-check-label" for="management">Management</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Construction" id="construction">
+                                <label class="form-check-label" for="construction">Construction</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Other" id="other-personnel">
+                                <label class="form-check-label" for="other-personnel">Other</label>
+                            </div>
+                            <input type="text" id="other-personnel-name" class="form-control mt-2 d-none" placeholder="Specify who">
+                        </div>
+                        <!-- Entry Type -->
+                        <div class="form-group">
+                            <label for="entry-type">Entry Type:</label>
+                            <select id="entry-type" class="form-control">
+                                <option value="">Select Entry Type</option>
+                                <option value="Resident Permission">Resident Permission</option>
+                                <option value="Emergency">Emergency</option>
+                                <option value="Scheduled Maintenance">Scheduled Maintenance</option>
+                            </select>
+                        </div>
+                        <!-- Nature of Visit -->
+                        <div class="form-group">
+                            <label for="nature-of-visit">Nature of Visit:</label>
+                            <textarea id="nature-of-visit" class="form-control" rows="3" placeholder="Describe the nature of the visit..."></textarea>
+                        </div>
+                        <!-- Options -->
+                        <div class="form-group">
+                            <label>Options:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Work Completed" id="work-completed">
+                                <label class="form-check-label" for="work-completed">Work Completed</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Work Pending" id="work-pending">
+                                <label class="form-check-label" for="work-pending">Work Pending</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Please Contact Property Management" id="contact-management">
+                                <label class="form-check-label" for="contact-management">Please Contact Property Management</label>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
