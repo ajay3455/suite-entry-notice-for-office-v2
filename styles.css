@@ -1,0 +1,105 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+}
+
+h1, h2, label {
+    color: #bf360c;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.card-body {
+    overflow-y: auto;
+}
+
+#notice-preview .notice {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 12px;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.notice img.logo {
+    max-width: 100px;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.notice img.lock {
+    max-width: 60px;
+    display: block;
+    margin: 10px auto;
+}
+
+.notice h2 {
+    text-align: center;
+    margin: 10px 0;
+    color: #bf360c;
+}
+
+.notice p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.notice .footer {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.notice .options {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.notice .options div {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.notice .options div span {
+    margin-left: 5px;
+}
+
+/* Print Styles */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #printable-area, #printable-area * {
+        visibility: visible;
+    }
+    #printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+    }
+    #printable-area .notice {
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+        page-break-after: always;
+    }
+    #printable-area .notice:last-child {
+        page-break-after: avoid;
+    }
+    .no-print {
+        display: none;
+    }
+    .card, .card-body {
+        margin: 0;
+        padding: 0;
+    }
+}
