@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Suite Entry Notice Generator (Office Printer)</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<style>
+    /* General Styles */
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    }
+    h1, h2, h3, h4, h5, h6, label {
+        color: #bf360c;
+    }
+    /* Header */
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    /* Main Container */
+    .container {
+        display: flex;
+        gap: 20px;
+    }
+    .section {
+        flex: 1;
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+    /* Form Section */
+    .form-section img {
+        display: block;
+        margin: 0 auto 10px auto;
+        max-width: 100px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .checkbox-group, .options-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .checkbox-group label, .options-group label {
+        font-weight: normal;
+    }
+    .hidden {
+        display: none;
+    }
+    /* Notice Styles */
+    .notice {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .notice img.logo {
+        max-width: 80px;
+        display: block;
+        margin: 0 auto 10px auto;
+    }
+    .notice img.lock {
+        max-width: 50px;
+        display: block;
+        margin: 10px auto;
+    }
+    .notice h2 {
+        text-align: center;
+        margin: 0;
+    }
+    .notice p {
+        margin: 10px 0;
+    }
+    .notice .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    .notice .options {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .notice .options div {
+        display: flex;
+        align-items: center;
+    }
+    .notice .options div span {
+        margin-left: 5px;
+    }
+    /* Print Button */
+    .print-section {
+        margin-bottom: 20px;
+    }
+    .print-section select, .print-section button {
+        margin-right: 10px;
+    }
+    /* Media Print Styles */
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .notice, .notice * {
+            visibility: visible;
+        }
+        .notice {
+            position: absolute;
+            left: 0;
+            top: 0;
+            page-break-after: always;
+        }
+        .notice + .notice {
+            page-break-before: always;
+        }
+        .no-print {
+            display: none;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Suite Entry Notice Generator (Office Printer)</h1>
+</header>
+
+<div class="container">
+    <!-- Form Section -->
+    <div class="section form-section">
+        <img src="https://i.imgur.com/LmweghF.png" alt="Company Logo">
+        <form id="notice-form">
+            <!-- Suite Number -->
+            <div class="form-group">
+                <label for="suite-number">Suite Number:</label>
+                <input type="text" id="suite-number" placeholder="e.g., 1205">
+            </div>
+            <!-- Date of Entry -->
+            <div class="form-group">
+                <label for="entry-date">Date of Entry:</label>
+                <input type="date" id="entry-date">
+            </div>
+            <!-- Persons Who Entered -->
+            <div class="form-group">
+                <label>Person(s) who entered the suite:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="Security" id="security"> Security</label>
+                    <div id="security-options" class="hidden">
+                        <label for="guard-name">Select Guard:</label>
+                        <select id="guard-name">
+                            <option value="">Select Guard</option>
+                            <option value="Ajaypreet">Ajaypreet</option>
+                            <option value="Amritpal">Amritpal</option>
+                            <option value="Meet">Meet</option>
+                            <option value="Jatin">Jatin</option>
+                            <option value="Praveen">Praveen</option>
+                            <option value="Jashanpreet">Jashanpreet</option>
+                            <option value="Arnav">Arnav</option>
+                            <option value="Gurwinder">Gurwinder</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <input type="text" id="other-guard-name" class="hidden" placeholder="Enter Guard's Name">
+                    </div>
+                    <label><input type="checkbox" value="Superintendent"> Superintendent</label>
+                    <label><input type="checkbox" value="Management"> Management</label>
+                    <label><input type="checkbox" value="Construction"> Construction</label>
+                    <label><input type="checkbox" value="Other" id="other-personnel"> Other</label>
+                    <input type="text" id="other-personnel-name" class="hidden" placeholder="Specify who">
+                </div>
+            </div>
+            <!-- Entry Type -->
+            <div class="form-group">
+                <label for="entry-type">Entry Type:</label>
+                <select id="entry-type">
+                    <option value="">Select Entry Type</option>
+                    <option value="Resident Permission">Resident Permission</option>
+                    <option value="Emergency">Emergency</option>
+                    <option value="Scheduled Maintenance">Scheduled Maintenance</option>
+                </select>
+            </div>
+            <!-- Nature of Visit -->
+            <div class="form-group">
+                <label for="nature-of-visit">Nature of Visit:</label>
+                <textarea id="nature-of-visit" rows="3"></textarea>
+            </div>
+            <!-- Options -->
+            <div class="form-group">
+                <label>Options:</label>
+                <div class="options-group">
+                    <label><input type="checkbox" value="Work Completed"> Work Completed</label>
+                    <label><input type="checkbox" value="Work Pending"> Work Pending</label>
+                    <label><input type="checkbox" value="Please Contact Property Management"> Please Contact Property Management</label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Sample Preview Section -->
+    <div class="section">
+        <h2>Sample Notice</h2>
+        <div class="notice">
+            <img src="https://i.imgur.com/LmweghF.png" alt="Company Logo" class="logo">
+            <h2>SUITE ENTRY NOTICE</h2>
+            <img src="https://i.imgur.com/7O6EOHU.png" alt="Lock Image" class="lock">
+            <p><strong>Date:</strong> ____________</p>
+            <p><strong>Suite Number:</strong> ____________</p>
+            <p><strong>Person(s) who entered:</strong> ____________</p>
+            <p><strong>Entry Type:</strong> ____________</p>
+            <p><strong>Nature of Visit:</strong></p>
+            <p>____________</p>
+            <div class="options">
+                <div><span>☐</span><span>Work Completed</span></div>
+                <div><span>☐</span><span>Work Pending</span></div>
+                <div><span>☐</span><span>Please Contact Property Management</span></div>
+            </div>
+            <p class="footer">Questions? Contact Property Management: 647-368-7395</p>
+        </div>
+    </div>
+
+    <!-- Notice Preview Section -->
+    <div class="section">
+        <h2>Notice Preview</h2>
+        <div class="print-section">
+            <label for="notices-per-page">Notices per Page:</label>
+            <select id="notices-per-page">
+                <option value="1">1 per page</option>
+                <option value="2">2 per page</option>
+            </select>
+            <button id="print-button">Print Notice</button>
+        </div>
+        <div id="notice-preview"></div>
+    </div>
+</div>
+
+<script>
+    // JavaScript Code
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form Elements
+        const suiteNumberInput = document.getElementById('suite-number');
+        const entryDateInput = document.getElementById('entry-date');
+        const securityCheckbox = document.getElementById('security');
+        const securityOptions = document.getElementById('security-options');
+        const guardNameSelect = document.getElementById('guard-name');
+        const otherGuardNameInput = document.getElementById('other-guard-name');
+        const otherPersonnelCheckbox = document.getElementById('other-personnel');
+        const otherPersonnelNameInput = document.getElementById('other-personnel-name');
+        const entryTypeSelect = document.getElementById('entry-type');
+        const natureOfVisitInput = document.getElementById('nature-of-visit');
+        const optionsCheckboxes = document.querySelectorAll('.options-group input[type="checkbox"]');
+        const noticesPerPageSelect = document.getElementById('notices-per-page');
+        const printButton = document.getElementById('print-button');
+        const noticePreviewDiv = document.getElementById('notice-preview');
+        const formInputs = document.querySelectorAll('#notice-form input, #notice-form select, #notice-form textarea');
+
+        // Dynamic Form Behavior
+        securityCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                securityOptions.classList.remove('hidden');
+            } else {
+                securityOptions.classList.add('hidden');
+                guardNameSelect.value = '';
+                otherGuardNameInput.value = '';
+                otherGuardNameInput.classList.add('hidden');
+            }
+            updateNotice();
+        });
+
+        guardNameSelect.addEventListener('change', function() {
+            if (this.value === 'Others') {
+                otherGuardNameInput.classList.remove('hidden');
+            } else {
+                otherGuardNameInput.classList.add('hidden');
+                otherGuardNameInput.value = '';
+            }
+            updateNotice();
+        });
+
+        otherPersonnelCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                otherPersonnelNameInput.classList.remove('hidden');
+            } else {
+                otherPersonnelNameInput.classList.add('hidden');
+                otherPersonnelNameInput.value = '';
+            }
+            updateNotice();
+        });
+
+        // Update Notice Preview
+        formInputs.forEach(function(input) {
+            input.addEventListener('input', updateNotice);
+            input.addEventListener('change', updateNotice);
+        });
+
+        function updateNotice() {
+            noticePreviewDiv.innerHTML = '';
+            const noticeData = collectNoticeData();
+            const noticeHTML = generateNoticeHTML(noticeData);
+            const noticesPerPage = parseInt(noticesPerPageSelect.value);
+
+            for (let i = 0; i < noticesPerPage; i++) {
+                const noticeElement = document.createElement('div');
+                noticeElement.classList.add('notice');
+                noticeElement.innerHTML = noticeHTML;
+                if (noticesPerPage === 2 && i === 0) {
+                    noticeElement.style.marginBottom = '20px';
+                    noticeElement.style.borderBottom = '2px dotted #ccc';
+                }
+                noticePreviewDiv.appendChild(noticeElement);
+            }
+        }
+
+        function collectNoticeData() {
+            const suiteNumber = suiteNumberInput.value || '____________';
+            const entryDate = entryDateInput.value ? formatDate(entryDateInput.value) : '____________';
+            let personsWhoEntered = [];
+            document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked').forEach(function(checkbox) {
+                if (checkbox.value === 'Security') {
+                    let guardName = guardNameSelect.value;
+                    if (guardName === 'Others') {
+                        guardName = otherGuardNameInput.value || '____________';
+                    }
+                    if (guardName) {
+                        personsWhoEntered.push(`Security (${guardName})`);
+                    } else {
+                        personsWhoEntered.push('Security');
+                    }
+                } else if (checkbox.value === 'Other') {
+                    const otherName = otherPersonnelNameInput.value || '____________';
+                    personsWhoEntered.push(otherName);
+                } else {
+                    personsWhoEntered.push(checkbox.value);
+                }
+            });
+            if (personsWhoEntered.length === 0) {
+                personsWhoEntered.push('____________');
+            }
+
+            const entryType = entryTypeSelect.value || '____________';
+            const natureOfVisit = natureOfVisitInput.value || '____________';
+
+            let options = [];
+            optionsCheckboxes.forEach(function(checkbox) {
+                options.push({
+                    label: checkbox.value,
+                    checked: checkbox.checked
+                });
+            });
+
+            return {
+                suiteNumber,
+                entryDate,
+                personsWhoEntered: personsWhoEntered.join(', '),
+                entryType,
+                natureOfVisit,
+                options
+            };
+        }
+
+        function generateNoticeHTML(data) {
+            let optionsHTML = '';
+            data.options.forEach(function(option) {
+                const symbol = option.checked ? '☑' : '☐';
+                optionsHTML += `<div><span>${symbol}</span><span>${option.label}</span></div>`;
+            });
+
+            return `
+                <img src="https://i.imgur.com/LmweghF.png" alt="Company Logo" class="logo">
+                <h2>SUITE ENTRY NOTICE</h2>
+                <img src="https://i.imgur.com/7O6EOHU.png" alt="Lock Image" class="lock">
+                <p><strong>Date:</strong> ${data.entryDate}</p>
+                <p><strong>Suite Number:</strong> ${data.suiteNumber}</p>
+                <p><strong>Person(s) who entered:</strong> ${data.personsWhoEntered}</p>
+                <p><strong>Entry Type:</strong> ${data.entryType}</p>
+                <p><strong>Nature of Visit:</strong></p>
+                <p>${data.natureOfVisit}</p>
+                <div class="options">
+                    ${optionsHTML}
+                </div>
+                <p class="footer">Questions? Contact Property Management: 647-368-7395</p>
+            `;
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString(undefined, options);
+        }
+
+        // Initial Notice Update
+        updateNotice();
+
+        // Print Functionality
+        printButton.addEventListener('click', function() {
+            window.print();
+        });
+    });
+</script>
+
+</body>
+</html>
