@@ -120,7 +120,7 @@ $(document).ready(function() {
         });
 
         return `
-            <img src="https://i.imgur.com/LmweghF.png" alt="Company Logo" class="logo">
+            <img src="https://i.postimg.cc/HW76hBDq/Gloucester-Logo.jpg" alt="Company Logo" class="logo">
             <h2>SUITE ENTRY NOTICE</h2>
             <img src="https://i.imgur.com/7O6EOHU.png" alt="Lock Image" class="lock">
             <p><strong>Date:</strong> ${data.entryDate}</p>
